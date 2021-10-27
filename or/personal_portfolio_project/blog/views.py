@@ -5,7 +5,7 @@ from .models import Blog
 # Create your views here.
 # noinspection PyUnresolvedReferences
 def all_blogs(req):
-    posts = Blog.objects.order_by('-date')[:1]
+    posts = Blog.objects.order_by('-date')[:2]
     return render(req, 'blog/all_blogs.html', {'posts': posts})
 
 

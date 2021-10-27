@@ -10,3 +10,5 @@ class Project(models.Model):
     """ blank=True make the url optional """
     url = models.URLField(blank=True)
 
+    def __str__(self):
+        return self.title

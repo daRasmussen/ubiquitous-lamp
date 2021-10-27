@@ -1,7 +1,10 @@
+<!--suppress ALL -->
 <h1>All Blogs</h1>
+
+<h2>Has written {{ posts.count }} blog{{ posts.count|pluralize }}</h2>
 
 {% for post in posts %}
 <a href="{% url 'blog:detail' post.id %}"><h1>{{post.title}}</h1></a>
-<code>{{post.description}}</code>
-<h5>{{post.date}}</h5>
+<code>{{post.description|striptags|truncatechars:5}}</code>
+<h5>{{post.date|date:'M d Y'|upper}}</h5>
 {% endfor %}

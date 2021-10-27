@@ -1,17 +1,20 @@
-<!--suppress ALL -->
-<h4><a href="{% url 'blog:all_blogs' %}">Blog</a></h4>
-<h1>HELLO WORLD!</h1>
+<!--suppress HtmlUnknownTarget -->
+{% extends 'portfolio/base.html' %}
 
-{% load static %}
+{% block content %}
+    <h4><a href="{% url 'blog:all_blogs' %}">Blog</a></h4>
+    <h1>HELLO WORLD!</h1>
 
-<img src="{% static 'portfolio/drgeo.jpg' %}" alt="drgeo">
+    {% load static %}
 
-{% for project in projects %}
+    <img src="{% static 'portfolio/drgeo.jpg' %}" alt="drgeo">
 
-<h2>{{ project.title }}</h2>
-<code>{{ project.description }}</code>
-<img src="{{ project.image.url }}" alt="">
-<a href="{{ project.url }}">Link</a>
+    {% for project in projects %}
 
-{% endfor %}
+    <h2>{{ project.title }}</h2>
+    <code>{{ project.description }}</code>
+    <img src="{{ project.image.url }}" alt="">
+    <a href="{{ project.url }}">Link</a>
 
+    {% endfor %}
+{%endblock%}

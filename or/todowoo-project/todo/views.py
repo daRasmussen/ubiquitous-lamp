@@ -1,5 +1,5 @@
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
@@ -32,4 +32,35 @@ def signupuser(req):
 
 
 def currenttodos(req):
+    """"""
     return render(req, 'todo/currenttodos.html')
+
+
+def logoutuser(req):
+    if req.method == 'POST':
+        logout(req)
+        return redirect('home')
+
+
+def home(req):
+    return render(req, 'todo/home.html')
+
+
+def loginuser(req):
+    """ """
+    if req.method == "GET":
+        return render(req, 'todo/loginuser.html', {'form': AuthenticationForm()})
+    else:
+        """ Validate """
+        user = authenticate(req, username=req.POST["username"], password=req.POST["password"])
+        if user is None:
+            return render(
+                req,
+                'todo/loginuser.html',
+                {
+                    'form': AuthenticationForm(), "error": "User and password did not match"
+                }
+            )
+        else:
+            login(req, user)
+            return redirect('currenttodos')

@@ -1,6 +1,8 @@
+from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
@@ -12,8 +14,22 @@ def signupuser(req):
         """ Validate password """
         if req.POST['password1'] == req.POST['password2']:
             """ Create a new user """
-            user = User.objects.create_user(req.POST["username"], password=req.POST["password1"])
-            user.save()
+            try:
+                """ Check if user does not exists. """
+                user = User.objects.create_user(req.POST["username"], password=req.POST["password1"])
+                user.save()
+                login(req, user)
+                return redirect('currenttodos')
+            except IntegrityError:
+                return render(req, 'todo/signupuser.html', {
+                    "form": UserCreationForm(), "error": "User already in exists!"}
+                              )
         else:
-            print("Hello")
-            """ TODO: Tell the user the passwords didn't match! """
+            """ Tell the user the passwords didn't match! """
+            return render(req, 'todo/signupuser.html', {
+                "form": UserCreationForm(), "error": "Password didn't not match!"}
+            )
+
+
+def currenttodos(req):
+    return render(req, 'todo/currenttodos.html')

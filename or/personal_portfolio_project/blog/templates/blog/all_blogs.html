@@ -1,1 +1,7 @@
 <h1>All Blogs</h1>
+
+{% for post in posts %}
+<h1>{{post.title}}</h1>
+<code>{{post.description}}</code>
+<h5>{{post.date}}</h5>
+{% endfor %}

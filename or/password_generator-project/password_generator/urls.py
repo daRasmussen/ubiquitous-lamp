@@ -16,7 +16,9 @@ Including another URLconf
 from django.urls import path
 from generator import views
 
+# noinspection PyUnusedName
 urlpatterns = [
-    path('', views.home),
-    path('eggs', views.eggs),
+    path('', views.home, name="home"),
+    path('about/', views.about, name="about"),
+    path('password/', views.password, name="password"),
 ]

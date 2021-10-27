@@ -1,6 +1,10 @@
 <!--suppress ALL -->
 <h1>HELLO WORLD!</h1>
 
+{% load static %}
+
+<img src="{% static 'portfolio/drgeo.jpg' %}" alt="drgeo">
+
 {% for project in projects %}
 
 <h2>{{ project.title }}</h2>

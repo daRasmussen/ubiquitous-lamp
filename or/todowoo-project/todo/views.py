@@ -5,6 +5,8 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from django.utils import timezone
+
 from todo.forms import TodoForm
 from todo.models import Todo
 
@@ -85,11 +87,30 @@ def createtodo(req):
             new_todo.save()
             return redirect('currenttodos')
         except ValueError:
-            return render(req, 'todo/createtodo.html', {'form': TodoForm(), "error": "Value Error" })
+            return render(req, 'todo/createtodo.html', {'form': TodoForm(), "error": "Value Error"})
 
 
 def viewtodo(req, todo_pk):
-    # TODO: Grab the todo from db.
-    # TODO: Pass it to template.
-    task = get_object_or_404(Todo, pk=todo_pk)
-    return render(req, 'todo/viewtodo.html', {"task": task})
+    todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
+    if req.method == "GET":
+        form = TodoForm(instance=todo)
+        return render(req, 'todo/viewtodo.html', {"todo": todo, "form": form})
+    else:
+        try:
+            form = TodoForm(req.POST, instance=todo)
+            form.save()
+            return redirect('currenttodos')
+        except ValueError:
+            return render(
+                req, 'todo/viewtodo.html', {
+                    "todo": todo,
+                    "form": form,
+                    "error": "Bad info!"})
+
+
+def completetodo(req, todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
+    if req.method == "POST":
+        todo.datecompleted = timezone.now()
+        todo.save()
+        return redirect('currenttodos')

@@ -1,0 +1,12 @@
+{% extends 'todo/base.html' %}
+
+{%  block content %}
+
+    <h1>{{ task }}</h1>
+    <h2>{{ task.memo }}</h2>
+    <h2>{{ task.created }}</h2>
+    <h2>{{ task.datecompleted }}</h2>
+    <h2>{{ task.important }}</h2>
+    <h2>{{ task.user }}</h2>
+
+{% endblock %}

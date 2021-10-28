@@ -2,10 +2,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from todo.forms import TodoForm
+from todo.models import Todo
 
 
 def signupuser(req):
@@ -33,9 +34,12 @@ def signupuser(req):
                           )
 
 
+# noinspection PyUnresolvedReferences
 def currenttodos(req):
     """"""
-    return render(req, 'todo/currenttodos.html')
+    """ isnull_ datecompleted, only show uncompleted tasks in current. """
+    todos = Todo.objects.filter(user=req.user, datecompleted__isnull=True)
+    return render(req, 'todo/currenttodos.html', {"todos": todos})
 
 
 def logoutuser(req):
@@ -82,3 +86,10 @@ def createtodo(req):
             return redirect('currenttodos')
         except ValueError:
             return render(req, 'todo/createtodo.html', {'form': TodoForm(), "error": "Value Error" })
+
+
+def viewtodo(req, todo_pk):
+    # TODO: Grab the todo from db.
+    # TODO: Pass it to template.
+    task = get_object_or_404(Todo, pk=todo_pk)
+    return render(req, 'todo/viewtodo.html', {"task": task})

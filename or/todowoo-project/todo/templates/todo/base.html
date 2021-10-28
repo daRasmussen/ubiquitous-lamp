@@ -2,7 +2,6 @@
     <h1>Logged in as {{ user.username }}</h1>
     <form action="{% url 'logoutuser' %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p}}
         <button type="submit">LogOut</button>
     </form>
 {% else %}

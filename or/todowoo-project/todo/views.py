@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
-
 # Create your views here.
+from todo.forms import TodoForm
+
+
 def signupuser(req):
     """"""
     if req.method == "GET":
@@ -28,7 +30,7 @@ def signupuser(req):
             """ Tell the user the passwords didn't match! """
             return render(req, 'todo/signupuser.html', {
                 "form": UserCreationForm(), "error": "Password didn't not match!"}
-            )
+                          )
 
 
 def currenttodos(req):
@@ -64,3 +66,19 @@ def loginuser(req):
         else:
             login(req, user)
             return redirect('currenttodos')
+
+
+def createtodo(req):
+    if req.method == 'GET':
+        return render(req, 'todo/createtodo.html', {'form': TodoForm()})
+    else:
+        try:
+            form = TodoForm(req.POST)
+            """ Don't put in the database yet. """
+            new_todo = form.save(commit=False)
+            new_todo.user = req.user
+            """ Now we will save. """
+            new_todo.save()
+            return redirect('currenttodos')
+        except ValueError:
+            return render(req, 'todo/createtodo.html', {'form': TodoForm(), "error": "Value Error" })

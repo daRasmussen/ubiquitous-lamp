@@ -114,3 +114,10 @@ def completetodo(req, todo_pk):
         todo.datecompleted = timezone.now()
         todo.save()
         return redirect('currenttodos')
+
+
+def deletetodo(req, todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
+    if req.method == "POST":
+        todo.delete()
+        return redirect('currenttodos')

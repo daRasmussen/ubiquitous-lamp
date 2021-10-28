@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from django.utils import timezone
@@ -36,7 +37,7 @@ def signupuser(req):
                           )
 
 
-# noinspection PyUnresolvedReferences
+@login_required
 def currenttodos(req):
     """"""
     """ isnull_ datecompleted, only show uncompleted tasks in current. """
@@ -44,6 +45,7 @@ def currenttodos(req):
     return render(req, 'todo/currenttodos.html', {"todos": todos})
 
 
+@login_required
 def logoutuser(req):
     if req.method == 'POST':
         logout(req)
@@ -74,6 +76,7 @@ def loginuser(req):
             return redirect('currenttodos')
 
 
+@login_required
 def createtodo(req):
     if req.method == 'GET':
         return render(req, 'todo/createtodo.html', {'form': TodoForm()})
@@ -90,6 +93,7 @@ def createtodo(req):
             return render(req, 'todo/createtodo.html', {'form': TodoForm(), "error": "Value Error"})
 
 
+@login_required
 def viewtodo(req, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
     if req.method == "GET":
@@ -108,6 +112,7 @@ def viewtodo(req, todo_pk):
                     "error": "Bad info!"})
 
 
+@login_required
 def completetodo(req, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
     if req.method == "POST":
@@ -116,8 +121,20 @@ def completetodo(req, todo_pk):
         return redirect('currenttodos')
 
 
+@login_required
 def deletetodo(req, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=req.user)
     if req.method == "POST":
         todo.delete()
         return redirect('currenttodos')
+
+
+@login_required
+def completedtodos(req):
+    """"""
+    """ isnull_ datecompleted, only show uncompleted tasks in current. """
+    todos = Todo.objects.filter(
+        user=req.user,
+        datecompleted__isnull=False
+    ).order_by("-datecompleted")
+    return render(req, 'todo/completedtodo.html', {"todos": todos})

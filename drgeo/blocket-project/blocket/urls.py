@@ -24,10 +24,12 @@ from main import views as main_views
 class Names(str, Enum):
     INDEX = 'index'
     REGISTER_USER = 'register_user'
+    PROFILE = 'profile'
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", main_views.index, name=f"{Names.INDEX}"),
-    path("register_user/", main_views.register_user, name=f"{Names.REGISTER_USER}")
+    path("register_user/", main_views.register_user, name=f"{Names.REGISTER_USER}"),
+    path("profile/", main_views.profile, name=f"{Names.PROFILE}")
 ]

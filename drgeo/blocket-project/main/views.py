@@ -1,13 +1,16 @@
 from enum import Enum
 
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
 from .forms import CustomUserCreationForm
 
 
-class Names(str, Enum):
-    APP = 'Blocket'
+class Titles(str, Enum):
+    INDEX = 'Blocket'
     REGISTER_USER = 'Sign up'
 
 
@@ -17,15 +20,33 @@ class Locations(str, Enum):
 
 
 def index(req):
-    return render(req, Locations.INDEX, {"title": f"{Names.APP}"})
+    return render(req, Locations.INDEX, {"title": f"{Titles.INDEX}"})
 
 
 def register_user(req):
-    if req.method == "POST":
-        form = CustomUserCreationForm(req.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(req, 'Account created successfully!')
+    context = {
+        "title": f"{Titles.REGISTER_USER}",
+    }
+    if req.method == "GET":
+        return render(req, Locations.REGISTER_USER, dict({"form": CustomUserCreationForm()}, **context))
     else:
-        form = CustomUserCreationForm()
-    return render(req, Locations.REGISTER_USER, {"title": f"{Names.REGISTER_USER}", "form": form})
+        if req.POST["password1"] == req.POST["password2"]:
+            try:
+                user = User.objects.create_user(
+                    username=req.POST["username"],
+                    email=req.POST["email"],
+                    password=req.POST["password1"],
+                )
+                user.save()
+                messages.success(req, f"✨ ✨ ✨ Welcome {user.username} to Blocket! ✨ ✨ ✨")
+                login(req, user)
+                messages.success(req, f"{user.username} has successfully logged in!")
+                return redirect('index')
+            except IntegrityError:
+                messages.error(req, "Something went wrong.")
+        else:
+            messages.warning(req, "Ops! Your passwords did not match! ")
+            return render(req, Locations.REGISTER_USER, context)
+
+
+

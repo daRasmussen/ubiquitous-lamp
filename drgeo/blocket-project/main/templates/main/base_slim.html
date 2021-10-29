@@ -26,13 +26,10 @@
     </head>
     <body class="d-flex flex-column h-100 container-fluid">
         <!-- ########### MY CONTENT ############## -->
-        {% include 'main/nav.html' %}
-        {% include 'main/search.html' %}
         <main class="flex-shrink-0">
             {% include 'main/message.html' %}
             {% block main %}{% endblock %}
         </main>
-        {% include 'main/footer.html' %}
         <!-- ##################################### -->
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script

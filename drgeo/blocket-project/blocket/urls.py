@@ -13,14 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from enum import Enum
+
 from django.contrib import admin
 from django.urls import path
 
 from main import views as main_views
 
 
+class Names(str, Enum):
+    INDEX = 'index'
+    REGISTER_USER = 'register_user'
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", main_views.index, name="index"),
-    path("register_user/", main_views.register_user, name="register_user")
+    path("", main_views.index, name=f"{Names.INDEX}"),
+    path("register_user/", main_views.register_user, name=f"{Names.REGISTER_USER}")
 ]

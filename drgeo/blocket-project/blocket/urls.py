@@ -18,8 +18,9 @@ from django.urls import path
 
 from main import views as main_views
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', main_views.index, name="index"),
 
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", main_views.index, name="index"),
+    path("register_user/", main_views.register_user, name="register_user")
 ]

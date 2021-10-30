@@ -31,5 +31,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", main_views.index, name=f"{Names.INDEX}"),
     path("register_user/", main_views.register_user, name=f"{Names.REGISTER_USER}"),
-    path("profile/", main_views.profile, name=f"{Names.PROFILE}")
+    #path("profile/", main_views.profile, name=f"{Names.PROFILE}")
 ]

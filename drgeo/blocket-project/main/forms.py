@@ -1,5 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+from django.views.generic import FormView
+
+from main.models import Profile
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -77,5 +80,37 @@ class CustomUserChangeForm(UserChangeForm):
             "username",
             "email",
             "first_name",
-            "last_name"
+            "last_name",
+        ]
+
+
+class CustomProfileCreationForm(FormView):
+    class Meta:
+        model = Profile
+        fields = [
+            "image",
+            "phone",
+            "url",
+        ]
+
+
+class CustomProfileChangeForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["phone"].widget.attrs.update({
+            "type": "text"
+        })
+        self.fields["image"].widget.attrs.update({
+            "type": "image"
+        })
+        self.fields["url"].widget.attrs.update({
+            "type": "text"
+        })
+
+    class Meta:
+        model: Profile
+        fields = [
+            "phone"
+            "image",
+            "url"
         ]

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomProfileChangeForm
 
 
 class Titles(str, Enum):
@@ -31,7 +31,10 @@ def register_user(req):
         "title": f"{Titles.REGISTER_USER}",
     }
     if req.method == "GET" and req.user is None:
-        return render(req, Locations.REGISTER_USER, dict({"form": CustomUserCreationForm()}, **context))
+        return render(req, Locations.REGISTER_USER, dict(
+            {
+                "form": CustomUserCreationForm()
+            }, **context))
     elif req.method == "POST" and req.user is None:
         if req.POST["password1"] == req.POST["password2"]:
             try:
@@ -60,12 +63,16 @@ def profile(req):
         "TITLE": f"{Titles.PROFILE}",
     }
     if req.method == "GET":
-        return render(req, Locations.PROFILE, dict({"form": CustomUserChangeForm(instance=req.user)}, **context))
+        return render(req, Locations.PROFILE, dict(
+            {
+                "form": CustomUserChangeForm(instance=req.user),
+                "profile": CustomProfileChangeForm()
+            }, **context))
     if req.method == "POST":
         try:
             user_changed_form = CustomUserChangeForm(req.POST, instance=req.user)
             user_changed_form.save()
-            messages.success(req, 'From updated!')
+            messages.success(req, 'Hooray! User has been updated!')
             return render(req, Locations.PROFILE, dict({"form": user_changed_form}, **context))
         except ValueError:
             messages.error(req, "🤔 🤔 🤔 Something went wrong. 🤔 🤔 🤔")

@@ -1,6 +1,7 @@
 {%  extends 'main/base_profile.html' %}
 {% load static %}
 {% block main %}
+    {{ profile }}
     <br>
     <div class="row g-5">
         <div class="col-md-7 col-lg-8">
@@ -43,7 +44,10 @@
                 </div>
 
                 <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    <i class="bi bi-save"></i>
+                    Save
+                </button>
             </form>
         </div>
     </div>

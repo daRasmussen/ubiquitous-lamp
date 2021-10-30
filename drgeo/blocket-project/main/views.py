@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomProfileChangeForm
-
 
 class Titles(str, Enum):
     INDEX = "Blocket"
@@ -65,12 +63,11 @@ def profile(req):
     if req.method == "GET":
         return render(req, Locations.PROFILE, dict(
             {
-                "form": CustomUserChangeForm(instance=req.user),
-                "profile": CustomProfileChangeForm()
+                "form": {} #CustomUserChangeForm(instance=req.user),
             }, **context))
     if req.method == "POST":
         try:
-            user_changed_form = CustomUserChangeForm(req.POST, instance=req.user)
+            user_changed_form = {} #CustomUserChangeForm(req.POST, instance=req.user)
             user_changed_form.save()
             messages.success(req, 'Hooray! User has been updated!')
             return render(req, Locations.PROFILE, dict({"form": user_changed_form}, **context))

@@ -10,11 +10,9 @@ class Names(str, Enum):
 class Titles(str, Enum):
     INDEX = "Blocket"
     REGISTER_USER = "Sign Up"
-    PROFILE = "My Profile"
 
 
 class Locations(str, Enum):
     INDEX = "main/index.html",
-    REGISTER_USER = "main/register_user.html",
-    PROFILE = "main/profile.html"
+    REGISTER_USER = "account/register_user.html",
 

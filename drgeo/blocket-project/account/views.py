@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+from conf.conf import Locations, Titles
+
+
+def register_user(req):
+    return render(req, Locations.REGISTER_USER, {"title": Titles.REGISTER_USER.name})

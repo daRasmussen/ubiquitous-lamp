@@ -19,12 +19,11 @@ from django.contrib import admin
 from django.urls import path
 
 from main import views as main_views
-
+from account import views as account_views
 from conf.conf import Names
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", main_views.index, name=f"{Names.INDEX}"),
-    path("register_user/", main_views.register_user, name=f"{Names.REGISTER_USER}"),
-    #path("profile/", main_views.profile, name=f"{Names.PROFILE}")
+    path("register_user/", account_views.register_user, name=f"{Names.REGISTER_USER}"),
 ]

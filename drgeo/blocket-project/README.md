@@ -27,3 +27,8 @@ Created with:
     python manage.py startapp main
 ```
 
+#Tests and Coverage 
+Run specific tests with coverage
+```
+    coverage run --source "main, account" manage.py test -v 2 && coverage report
+```

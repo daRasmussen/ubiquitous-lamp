@@ -20,12 +20,7 @@ from django.urls import path
 
 from main import views as main_views
 
-
-class Names(str, Enum):
-    INDEX = 'index'
-    REGISTER_USER = 'register_user'
-    PROFILE = 'profile'
-
+from conf.conf import Names
 
 urlpatterns = [
     path("admin/", admin.site.urls),

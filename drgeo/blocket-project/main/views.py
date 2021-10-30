@@ -1,23 +1,12 @@
 from enum import Enum
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
-
-class Titles(str, Enum):
-    INDEX = "Blocket"
-    REGISTER_USER = "Sign Up"
-    PROFILE = "My Profile"
-
-
-class Locations(str, Enum):
-    INDEX = "main/index.html",
-    REGISTER_USER = "main/register_user.html",
-    PROFILE = "main/profile.html"
+from conf.conf import Titles, Locations
 
 
 def index(req):
@@ -55,21 +44,3 @@ def register_user(req):
         return redirect("profile")
 
 
-@login_required
-def profile(req):
-    context = {
-        "TITLE": f"{Titles.PROFILE}",
-    }
-    if req.method == "GET":
-        return render(req, Locations.PROFILE, dict(
-            {
-                "form": {} #CustomUserChangeForm(instance=req.user),
-            }, **context))
-    if req.method == "POST":
-        try:
-            user_changed_form = {} #CustomUserChangeForm(req.POST, instance=req.user)
-            user_changed_form.save()
-            messages.success(req, 'Hooray! User has been updated!')
-            return render(req, Locations.PROFILE, dict({"form": user_changed_form}, **context))
-        except ValueError:
-            messages.error(req, "🤔 🤔 🤔 Something went wrong. 🤔 🤔 🤔")

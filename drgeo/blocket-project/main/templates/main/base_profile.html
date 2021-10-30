@@ -17,6 +17,7 @@
                 crossorigin="anonymous"
         >
         <!-- ################# MY CONTENT ################### -->
+        <link rel="stylesheet" href="{% static 'main/css/messages.css' %}">
         <title>{{ title }}</title>
         <!-- ################# MY CONTENT ################### -->
     </head>
@@ -27,6 +28,7 @@
             {% include 'main/message.html' %}
             {% block main %}{% endblock %}
         </main>
+        <script src="{% static 'main/js/messages.js' %}"></script>
         <!-- ##################################### -->
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script

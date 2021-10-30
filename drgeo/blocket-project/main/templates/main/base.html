@@ -17,10 +17,11 @@
                 crossorigin="anonymous"
         >
         <!-- ################# MY CONTENT ################### -->
-        <link rel="stylesheet" href="{% static 'main/header.css' %}">
-        <link rel="stylesheet" href="{% static 'main/search.css' %}">
-        <link rel="stylesheet" href="{% static 'main/signin.css' %}">
-        <link rel="stylesheet" href="{% static 'main/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/search.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/signin.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/footer.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/messages.css' %}">
         <title>{{ title }}</title>
         <!-- ################# MY CONTENT ################### -->
     </head>
@@ -33,6 +34,7 @@
             {% block main %}{% endblock %}
         </main>
         {% include 'main/footer.html' %}
+        <script src="{% static 'main/js/messages.js' %}"></script>
         <!-- ##################################### -->
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script

@@ -1,0 +1,57 @@
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fadeIn {
+    -webkit-animation: fadeIn;
+    animation: fadeIn;
+    opacity: 1;
+}
+
+.fadeOut {
+    -webkit-animation: fadeOut;
+    animation: fadeOut;
+    opacity: 0;
+}
+
+.fast {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s
+}
+
+.message {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+

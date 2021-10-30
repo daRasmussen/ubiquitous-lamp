@@ -56,9 +56,16 @@ def register_user(req):
 
 @login_required
 def profile(req):
+    context = {
+        "TITLE": f"{Titles.PROFILE}",
+    }
     if req.method == "GET":
-        context = {
-            "TITLE": f"{Titles.PROFILE}",
-            "form": CustomUserChangeForm(instance=req.user)
-        }
-        return render(req, Locations.PROFILE, context)
+        return render(req, Locations.PROFILE, dict({"form": CustomUserChangeForm(instance=req.user)}, **context))
+    if req.method == "POST":
+        try:
+            user_changed_form = CustomUserChangeForm(req.POST, instance=req.user)
+            user_changed_form.save()
+            messages.success(req, 'From updated!')
+            return render(req, Locations.PROFILE, dict({"form": user_changed_form}, **context))
+        except ValueError:
+            messages.error(req, "🤔 🤔 🤔 Something went wrong. 🤔 🤔 🤔")

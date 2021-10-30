@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 
 
 class Titles(str, Enum):
@@ -58,6 +58,7 @@ def register_user(req):
 def profile(req):
     if req.method == "GET":
         context = {
-            "TITLE": f"{Titles.PROFILE}"
+            "TITLE": f"{Titles.PROFILE}",
+            "form": CustomUserChangeForm(instance=req.user)
         }
         return render(req, Locations.PROFILE, context)

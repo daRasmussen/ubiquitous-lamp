@@ -20,8 +20,9 @@
         <title>{{ title }}</title>
         <!-- ################# MY CONTENT ################### -->
     </head>
-    <body class="d-flex flex-column h-100 container-fluid">
+    <body class="d-flex flex-column h-100 container-fluid row">
         <!-- ########### MY CONTENT ############## -->
+        {% include 'main/nav_profile.html' %}
         <main class="flex-shrink-0">
             {% include 'main/message.html' %}
             {% block main %}{% endblock %}

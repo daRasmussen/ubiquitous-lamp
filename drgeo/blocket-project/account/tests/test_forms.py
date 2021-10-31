@@ -40,3 +40,5 @@ class TestForms(SimpleTestCase):
         form = SignUpForm(data={})
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 2)
+
+    """ TODO: Add tests for validation, etc.. """

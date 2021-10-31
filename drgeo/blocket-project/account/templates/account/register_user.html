@@ -20,17 +20,10 @@
             </label>
         </div>
         <div class="form-floating">
-            {{ form.password1 }}
+            {{ form.password }}
             <label for="floatingPassword">
                 <img src="{% static 'main/img/lock.svg' %}" alt="Bootstrap" width="20" height="20">
                 Password
-            </label>
-        </div>
-        <div class="form-floating">
-            {{ form.password2 }}
-            <label for="floatingPassword">
-                <img src="{% static 'main/img/lock.svg' %}" alt="Bootstrap" width="20" height="20">
-                Confirm Password
             </label>
         </div>
         <button type="submit" class="w-100 btn btn-lg btn-primary" name="submit" value="Register">Register</button>

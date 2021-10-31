@@ -1,7 +1,5 @@
 from sqlite3 import IntegrityError
 
-import faker.utils.loading
-from django.db.models import QuerySet
 from django.test import TestCase
 from faker import Faker
 
@@ -12,19 +10,26 @@ class TestAccount(TestCase):
     _first = None
 
     def setUp(self):
-        self.fake = Faker(["sv_SE"])
-        """ Setup 30 fake accounts. """
-        for _ in range(30):
-            profile = self.fake.profile()
-            if self._first is None:
-                self._first = profile
-            Account.objects.create(
-                username=profile["username"],
-                email=profile["mail"],
-                password=self.fake.password(length=12)
-            )
+        self.fakers = [
+            Faker(["sv_SE"]),
+            Faker(["da_DK"]),
+            Faker(["en_US"]),
+            Faker(["bg_BG"])
+        ]
+        for fake in self.fakers:
+            for _ in range(30):
+                profile = fake.profile()
+                if self._first is None:
+                    self._first = profile
+                a = Account.objects.create(
+                    username=profile["username"],
+                    email=profile["mail"],
+                    password=fake.password(length=12)
+                )
+                a.save()
 
     def test_fake_account_created(self):
+        assert Account.objects.count() == 120
         assert self._first
         assert isinstance(self._first, dict)
 
@@ -42,3 +47,16 @@ class TestAccount(TestCase):
             assert account.first_name == ""
             assert account.last_name == ""
             assert account.image
+
+    def test_accounts_update(self):
+        for fake in self.fakers[::-1]:
+            for account in Account.objects.all():
+                new_username = fake.profile()["username"]
+                if not Account.objects.filter(username=new_username):
+                    assert Account.objects.filter(id=account.id).update(username=new_username)
+
+    def test_accounts_delete(self):
+        for fake in self.fakers:
+            for account in Account.objects.all():
+                entry = Account.objects.get(username=account.username)
+                assert entry.delete()

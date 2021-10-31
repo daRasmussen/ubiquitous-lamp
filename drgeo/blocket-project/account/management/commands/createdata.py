@@ -2,7 +2,6 @@ import faker.providers
 from django.core.management.base import BaseCommand
 from faker import Faker
 
-
 CATEGORIES = [
     "Shoes",
     "Shirts"
@@ -27,6 +26,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         fake = Faker(["sv_SE"])
-        print(fake.address())
+        # print(fake.address())
         fake.add_provider(Provider)
-        print(fake.ecommerce_products())
+        # print(fake.ecommerce_products())
+
+        #print(fake.profile(fields=["username"]))
+        #print(fake.profile(fields=["mail"]))
+        #print(fake.password())
+        for p in range(20):
+            profile = fake.profile()
+            print(profile["username"])

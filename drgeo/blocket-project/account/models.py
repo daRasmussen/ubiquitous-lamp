@@ -81,7 +81,7 @@ class Account(AbstractBaseUser):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.email
+        return f"{self.email}:{self.username}"
 
     """ REQUIRED FUNCTIONS """
 

@@ -37,3 +37,32 @@ class SignUpForm(forms.Form):
                 "email",
                 "password"
             ]
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(max_length=60)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update({
+            "required": "",
+            "type": "text",
+            "class": "form-control",
+            "id": "email",
+            "placeholder": "email"
+        })
+
+        self.fields["password"].widget.attrs.update({
+            "type": "password",
+            "class": "form-control",
+            "id": "password",
+            "placeholder": "super-secret-password"
+        })
+
+        class Meta:
+            model = Account
+            fields = [
+                "email",
+                "password"
+            ]

@@ -4,14 +4,7 @@
     <form method="POST" action="." class="form-signin text-center">
         {% csrf_token %}
         <img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Please Register</h1>
-        <div class="form-floating">
-            {{ form.username }}
-            <label for="floatingInput">
-                <img src="{% static 'main/img/person-circle.svg' %}" alt="Bootstrap" width="20" height="20">
-                Username
-            </label>
-        </div>
+        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
         <div class="form-floating">
             {{ form.email }}
             <label for="floatingInput">
@@ -28,7 +21,7 @@
         </div>
         <button type="submit" class="w-100 btn btn-lg btn-primary" name="submit" value="Register">Register</button>
         <p class="mt-5 mb-3">
-            <a href="{% url 'login_user' %}">Already signed up?</a>
+            <a href="{% url 'register_user' %}">No Account?</a>
         </p>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </form>

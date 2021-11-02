@@ -23,6 +23,8 @@ from conf.conf import Names
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", main_views.index, name=f"{Names.INDEX}"),
-    path("register_user/", account_views.register_user, name=f"{Names.REGISTER_USER}"),
+    path("", main_views.index, name=f"{Names.INDEX.value}"),
+    path("register_user/", account_views.register_user, name=f"{Names.REGISTER_USER.value}"),
+    path("login/", account_views.login_user, name=f"{Names.LOGIN_USER.value}"),
+    path("logout/", account_views.logout_user, name=f"{Names.LOGOUT_USER.value}")
 ]

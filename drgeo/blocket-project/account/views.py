@@ -7,6 +7,8 @@ from account.forms import SignUpForm
 from account.models import Account
 from conf.conf import Locations, Titles
 
+from main.views import index
+
 
 def register_user(req):
     context = {
@@ -29,4 +31,4 @@ def register_user(req):
             messages.success(req, f"👏 👏 👏 {user.username} has successfully logged in! 👏 👏 👏")
         except IntegrityError:
             messages.error(req, "🤔 🤔 🤔 Username taken. 🤔 🤔 🤔")
-        return redirect(Locations.INDEX)
+        return redirect(index)

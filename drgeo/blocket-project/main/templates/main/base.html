@@ -27,7 +27,11 @@
     </head>
     <body class="d-flex flex-column h-100 container-fluid">
         <!-- ########### MY CONTENT ############## -->
-        {% include 'main/nav.html' %}
+        {% if user.is_authenticated %}
+            {% include 'main/auth_nav.html' %}
+        {% else %}
+            {% include 'main/nav.html' %}
+        {% endif %}
         {% include 'main/search.html' %}
         <main class="flex-shrink-0">
             {% include 'main/message.html' %}

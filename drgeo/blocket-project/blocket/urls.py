@@ -19,6 +19,7 @@ from django.urls import path
 
 from main import views as main_views
 from account import views as account_views
+from user_profile import views as user_profile_views
 from conf.conf import Names
 
 urlpatterns = [
@@ -26,5 +27,6 @@ urlpatterns = [
     path("", main_views.index, name=f"{Names.INDEX.value}"),
     path("register_user/", account_views.register_user, name=f"{Names.REGISTER_USER.value}"),
     path("login/", account_views.login_user, name=f"{Names.LOGIN_USER.value}"),
-    path("logout/", account_views.logout_user, name=f"{Names.LOGOUT_USER.value}")
+    path("logout/", account_views.logout_user, name=f"{Names.LOGOUT_USER.value}"),
+    path("profile", user_profile_views.index, name=f"{Names.USER_PROFILE.value}")
 ]

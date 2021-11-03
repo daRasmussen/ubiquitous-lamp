@@ -55,6 +55,7 @@ class Account(AbstractBaseUser):
     phone = models.CharField(max_length=30, default="")
     first_name = models.CharField(max_length=30, default="")
     last_name = models.CharField(max_length=30, default="")
+    about = models.TextField(max_length=300, default="")
 
     """ 
         TODO: 

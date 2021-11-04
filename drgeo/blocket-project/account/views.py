@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.views import View
 
 from account.forms import SignUpForm, LoginForm
 from account.models import Account
@@ -15,14 +14,14 @@ def register_user(req):
     context = {
         "title": Titles.REGISTER_USER.value
     }
-    if req.method == 'GET':
+    if req.method == "GET":
         return render(req, Locations.REGISTER_USER, {
             **{
                 "form": SignUpForm()
             },
             **context
         })
-    elif req.method == 'POST':
+    elif req.method == "POST":
         try:
             user = Account.objects.create_user(
                 username=req.POST["username"],

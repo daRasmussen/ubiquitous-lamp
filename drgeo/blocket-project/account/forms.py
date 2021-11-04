@@ -22,7 +22,7 @@ class SignUpForm(forms.Form):
             "class": "form-control",
             "id": "email",
             "placeholder": "you@example.com",
-        }),
+        })
         self.fields["password"].widget.attrs.update({
             "type": "password",
             "class": "form-control",

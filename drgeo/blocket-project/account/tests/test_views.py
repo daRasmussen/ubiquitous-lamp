@@ -51,10 +51,3 @@ class RegisterTest(BaseTest):
             """ TODO: Assert that user has been created. """
             assert Account.objects.count() != 0
 
-    """ Assert that users are in db. """
-    #def test_view_register_confirm_users_created(self):
-    #        for profile in self.profiles:
-    #            assert Account.objects.get(username=profile["username"])
-    #            assert Account.objects.get(email=profile["email"])
-
-    """ TODO: Create test for error handling. """

@@ -35,39 +35,33 @@ class ProfileForm(forms.Form):
             "placeholder": "super-secret-password"
         })
         self.fields["first_name"].widget.attrs.update({
-            "required": "",
             "type": "text",
             "class": "form-control",
-            "id": "username",
-            "placeholder": "Username"
+            "id": "first_name",
+            "placeholder": "First Name"
         })
         self.fields["last_name"].widget.attrs.update({
-            "required": "",
             "type": "text",
             "class": "form-control",
-            "id": "username",
-            "placeholder": "Username"
+            "id": "last_name",
+            "placeholder": "Last Name"
         })
         self.fields["phone"].widget.attrs.update({
-            "required": "",
             "type": "text",
             "class": "form-control",
-            "id": "username",
-            "placeholder": "Username"
+            "id": "phone",
+            "placeholder": "Phone"
         })
         self.fields["about"].widget.attrs.update({
-            "required": "",
             "type": "text",
             "class": "form-control",
-            "id": "username",
-            "placeholder": "Username"
+            "id": "about",
+            "placeholder": "about"
         })
         self.fields["image"].widget.attrs.update({
-            "required": "",
             "type": "image",
             "class": "form-control",
-            "id": "username",
-            "placeholder": "Username"
+            "id": "profile_image",
         })
 
         class Meta:

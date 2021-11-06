@@ -12,8 +12,7 @@ from user_profile.forms import ProfileForm
 def index(req):
     context = {
         "title": Titles.USER_PROFILE.value,
-        "profile_form": ProfileForm(),
-        "address_form": AddressFormProfile()
+        "profile_form": ProfileForm()
     }
     if req.method == "GET":
         return render(req, Locations.USER_PROFILE.value, context)
@@ -30,15 +29,6 @@ def index(req):
             )
             profile.save()
             messages.success(req, f"✨ ✨ ✨ Successfully updated {profile.username}! ✨ ✨ ✨")
-            address = Address.objects.update(
-                street=req.POST["street"],
-                postcode=req.POST["postcode"],
-                city=req.POST["citry"],
-                country=req.POST["country"],
-                user=req.POST["user"]
-            )
-            address.save()
-            messages.success(req, f"✨ ✨ ✨ Successfully updated {address.street}! ✨ ✨ ✨")
         except IntegrityError:
             messages.error("🤔 🤔 🤔 Something went wrong. 🤔 🤔 🤔")
         return redirect(index)
